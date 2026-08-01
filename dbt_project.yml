@@ -1,0 +1,27 @@
+name: 'climate_financing'
+version: '1.0.0'
+config-version: 2
+
+profile: 'climate_financing'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  climate_financing:
+    +schema: seed
+
+models:
+  climate_financing:
+    staging:
+      +materialized: table
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts

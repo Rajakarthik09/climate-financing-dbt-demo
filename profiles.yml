@@ -1,0 +1,7 @@
+climate_financing:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: 'climate_financing.duckdb'
+      threads: 4

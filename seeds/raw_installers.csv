@@ -1,0 +1,19 @@
+installer_id,installer_name,hardware_type,country,signup_date
+INS001,Terra Energy 1,solar,NL,2023-09-08
+INS002,Nord Solar 2,solar,ES,2023-03-31
+INS003,Vento Technik 3,solar,DE,2023-04-06
+INS004,Nord Solar 4,solar,ES,2023-07-23
+INS005,Terra Haus 5,ev_charger,FR,2024-04-04
+INS006,Vento Systems 6,solar,FR,2024-03-08
+INS007,Alpen Systems 7,battery,FR,2023-12-11
+INS008,Sonnen Energy 8,ev_charger,DE,2024-01-03
+INS009,Alpen Haus 9,heat_pump,DE,2024-04-15
+INS010,Vento Energy 10,ev_charger,DE,2023-10-28
+INS011,Terra Haus 11,heat_pump,ES,2023-07-16
+INS012,Terra Energy 12,solar,FR,2023-10-24
+INS013,Sonnen Solar 13,solar,AT,2023-10-12
+INS014,Rhein Systems 14,battery,NL,2023-12-30
+INS015,Nord Systems 15,solar,ES,2023-06-25
+INS016,Vento Solar 16,battery,AT,2024-01-24
+INS017,Alpen Haus 17,battery,NL,2023-02-27
+INS018,Nord Energy 18,heat_pump,AT,2023-10-02

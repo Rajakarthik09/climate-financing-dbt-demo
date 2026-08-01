@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "One row per customer, typed and cleaned."
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_installers
+    description: "One row per installer partner, typed and cleaned."
+    columns:
+      - name: installer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_loans
+    description: "One row per loan, typed and cleaned."
+    columns:
+      - name: loan_id
+        tests:
+          - unique
+          - not_null
+      - name: principal_amount
+        tests:
+          - not_null
+
+  - name: stg_payments
+    description: "One row per scheduled installment payment, typed and cleaned, with a derived delinquency flag."
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: is_delinquent_event
+        description: "True if the payment was late or missed."
+        tests:
+          - not_null

@@ -1,0 +1,70 @@
+version: 2
+
+seeds:
+  - name: raw_customers
+    description: "Synthetic customer records. Sample data, not real Bees & Bears data."
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+      - name: risk_segment
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['low', 'medium', 'high']
+
+  - name: raw_installers
+    description: "Synthetic installer partners (solar, battery, heat pump, EV charger)."
+    columns:
+      - name: installer_id
+        tests:
+          - unique
+          - not_null
+      - name: hardware_type
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['solar', 'battery', 'heat_pump', 'ev_charger']
+
+  - name: raw_loans
+    description: "Synthetic installment loans linking a customer to an installer."
+    columns:
+      - name: loan_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('raw_customers')
+                field: customer_id
+      - name: installer_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('raw_installers')
+                field: installer_id
+
+  - name: raw_payments
+    description: "Synthetic monthly installment payment records per loan."
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: loan_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('raw_loans')
+                field: loan_id
+      - name: status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['paid', 'late', 'missed', 'upcoming']

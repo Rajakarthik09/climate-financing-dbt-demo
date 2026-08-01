@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension."
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_installers
+    description: "Installer partner dimension."
+    columns:
+      - name: installer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_loans
+    description: "One row per loan with aggregated payment performance and a derived default flag (2+ missed installments)."
+    columns:
+      - name: loan_id
+        tests:
+          - unique
+          - not_null
+      - name: outstanding_balance
+        tests:
+          - not_null
+
+  - name: fct_payments
+    description: "One row per scheduled installment payment, denormalized with loan/customer/installer attributes for slicing."
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+
+  - name: mart_portfolio_risk
+    description: >
+      Business-facing mart: default and delinquency rate by risk segment and
+      hardware type. Powers Risk/Finance reporting on portfolio health.
+    columns:
+      - name: loan_count
+        tests:
+          - not_null
+      - name: default_rate_pct
+        tests:
+          - not_null
