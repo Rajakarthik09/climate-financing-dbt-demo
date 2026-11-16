@@ -11,7 +11,7 @@ payment_agg as (
         sum(case when status = 'missed' then 1 else 0 end) as missed_installments,
         sum(case when status = 'upcoming' then 1 else 0 end) as upcoming_installments,
         sum(coalesce(amount_paid, 0)) as total_paid,
-        max(is_delinquent_event) as has_any_delinquency
+        max(case when is_delinquent_event then 1 else 0 end) = 1 as has_any_delinquency
     from {{ ref('stg_payments') }}
     group by loan_id
 )
