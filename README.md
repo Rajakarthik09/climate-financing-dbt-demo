@@ -51,10 +51,13 @@ once it has two or more missed installments.
 
 ## Stack
 
-- **dbt-core** + **dbt-duckdb**. DuckDB is an in-process warehouse, so this
-  runs locally with no cloud account, credentials or cost. The models are
-  plain SQL; moving to Snowflake or BigQuery means swapping the adapter in
-  `profiles.yml`.
+- **dbt-core** + **dbt-duckdb** locally, and **dbt-bigquery** on Google
+  BigQuery. DuckDB is an in-process warehouse, so the default target runs
+  with no cloud account, credentials or cost. The same models also run on
+  BigQuery: type casts, safe casts and date differences go through dbt's
+  cross-database macros (`dbt.safe_cast`, `dbt.type_string`, `dbt.datediff`,
+  plus a small `money_type()` macro), so no model has a DuckDB-only and a
+  BigQuery-only version.
 - Raw data is loaded with `dbt seed` because the project is self-contained.
 
 **Data note:** all data is synthetic. `generate_data.py` produces realistic
@@ -71,6 +74,20 @@ export DBT_PROFILES_DIR="$(pwd)"
 dbt build                         # seeds, models and all 40 tests
 dbt docs generate && dbt docs serve   # browsable lineage graph + column docs
 ```
+
+### On BigQuery
+
+Works in the free BigQuery sandbox (no billing account needed).
+
+```bash
+gcloud auth application-default login
+export GCP_PROJECT=your-project-id
+dbt build --target bigquery       # same 4 seeds, 9 models and 40 tests
+```
+
+Both targets pass all 53 steps and produce identical results: on the
+current seed data `fct_loans` has 368 loans, 9 defaulted, and an outstanding
+balance of 1,729,755.79 on DuckDB and on BigQuery.
 
 ## A bug worth writing down
 

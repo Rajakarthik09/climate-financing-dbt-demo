@@ -5,3 +5,10 @@ climate_financing:
       type: duckdb
       path: 'climate_financing.duckdb'
       threads: 4
+    bigquery:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT') }}"
+      dataset: climate_financing
+      location: EU
+      threads: 4
